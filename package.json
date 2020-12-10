@@ -19,7 +19,12 @@
   },
   "homepage": "https://github.com/TonstarHipHop/Google-Assistant-Discord-Bot#readme",
   "dependencies": {
+    "@discordjs/opus": "^0.3.3",
+    "bumblebee-hotword-node": "^0.1.1",
     "discord.js": "^12.5.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "node-gyp": "^7.1.2",
+    "node-pre-gyp": "^0.17.0"
   }
 }

@@ -1,16 +1,19 @@
+const { Silence } = require('../audioClasses.js')
 module.exports = {
     name: "listen",
     aliases: ["join", "connect", "summon"],
     description: "Joins your channel",
     execute: async (message, args) => {
-        if (!message) {
-            return null;
-        }
-        if(!message.member.voice.channel)
-            message.channel.send("Please join a voice channel");
-        else
-            await message.member.voice.channel.join();
-            console.log(`Joined ${message.member.voice.channel.name}`)
+        const channel = message.member.voice.channel;
+        if (!message) return;
+        if(!channel)
+        return await message.channel.send("Please join a voice channel");
+        if (channel === message.member.guild.me.voice.channel)
+        return await message.channel.send("Already in the channel");
+        
+        console.log(`Joined ${channel.name}`)
+        const connection = await message.member.voice.channel.join();
+        connection.play(new Silence());
         return;
     }
 }
