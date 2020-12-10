@@ -20,7 +20,7 @@
   "homepage": "https://github.com/TonstarHipHop/Google-Assistant-Discord-Bot#readme",
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
-    "bumblebee-hotword-node": "^0.1.1",
+    "@picovoice/porcupine-node": "^1.9.0",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "fluent-ffmpeg": "^2.1.2",

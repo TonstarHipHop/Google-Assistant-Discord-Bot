@@ -1,6 +1,6 @@
 require('dotenv').config();
-const streamConverter = require('./audioClasses').StreamConverter;
-const ffmpeg = require('fluent-ffmpeg');
+const AudioClasses = require('./audioClasses');
+
 
 // Initiation for bot client
 const Discord = require('discord.js');
@@ -58,32 +58,15 @@ client.on('message', async (message) => {
     
 })
 
-const Bumblebee = require('bumblebee-hotword-node');
-
 // Entry point for voice commands
 client.on('guildMemberSpeaking', async (member, speaking) => {
     if (member.user.bot) return;
     if (!speaking.bitfield) return;
+    console.log(`Someone is talking`);
 
-    const writeStream = fs.createWriteStream("test.pcm");
     let audioStream = member.guild.me.voice.connection.receiver
         .createStream(member.user, { mode: 'pcm', end: 'silence'});
-    
-    const transcodedStream = new ffmpeg().input(audioStream)
-        .inputOptions(streamConverter.inputFlags)
-        .outputOptions(streamConverter.outputFlags)
-        .format(streamConverter.outputFormat).pipe();
+    let streamConverter = new AudioClasses.StreamConverter();
+    streamConverter.detectHotwords(audioStream);
 
-    const bumblebee = new Bumblebee();
-    bumblebee.addHotword('bumblebee');
-    bumblebee.on('hotword', hotword => console.log('detected' + hotword));
-    bumblebee.start({stream:transcodedStream});
-
-    
-    // transcodedStream.pipe(writeStream);
-    // transcodedStream.on('end', () => {
-    //     console.log("saved stream");
-    //     writeStream.end();
-    // })
-    
 })
