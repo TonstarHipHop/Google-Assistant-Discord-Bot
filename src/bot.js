@@ -62,7 +62,7 @@ client.on('message', async (message) => {
 client.on('guildMemberSpeaking', async (member, speaking) => {
     if (member.user.bot) return;
     if (!speaking.bitfield) return;
-    console.log(`Someone is talking`);
+    console.log(`${member.displayName} is talking`);
 
     let audioStream = member.guild.me.voice.connection.receiver
         .createStream(member.user, { mode: 'pcm', end: 'silence'});
